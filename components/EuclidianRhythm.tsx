@@ -42,7 +42,7 @@ export const EuclidianRhythm = ({
   useEffect(() => {
     if (tick !== prevTick) {
       const ppqnQuant = (PPQN * 4) / quant;
-      const ppqnTick = tick / ppqnQuant;
+      const ppqnTick = tick / ((PPQN * 4) / 16);
       const currentPosition = ppqnTick % length;
       const newStep = !!rhythm[currentPosition];
       const shouldPlay = tick % ppqnQuant === 0;

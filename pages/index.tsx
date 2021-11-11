@@ -155,6 +155,7 @@ const Home: NextPage = () => {
             <ClockDivider
               tick={tick}
               division={24}
+              quant={quant}
               onChange={(val) =>
                 dispatch({
                   type: "IN",
@@ -167,7 +168,8 @@ const Home: NextPage = () => {
             />
             <ClockDivider
               tick={tick}
-              division={18}
+              division={8}
+              quant={quant}
               onChange={(val) =>
                 dispatch({
                   type: "IN",
@@ -180,7 +182,8 @@ const Home: NextPage = () => {
             />
             <ClockDivider
               tick={tick}
-              division={12}
+              division={6}
+              quant={quant}
               onChange={(val) =>
                 dispatch({
                   type: "IN",
@@ -195,6 +198,7 @@ const Home: NextPage = () => {
               tick={tick}
               length={16}
               hits={11}
+              quant={quant}
               onChange={(val) =>
                 dispatch({
                   type: "IN",
