@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
+import { PPQN } from "./Metronome";
 
 const OPERATORS = ["", "AND", "OR", "XOR", "NOR", "NAND"]; // "NOR", "NAND",
 
@@ -38,7 +39,7 @@ const matrix = {
           });
         }
         const randx = Math.floor(Math.random() * 4);
-        const randy = Math.floor(Math.random() * 8);
+        const randy = Math.floor(Math.random() * 4);
         const newState2 = [...state.map((x) => [...x])];
         newState2[randy][randx] = randomOp();
         return newState2;
@@ -62,7 +63,7 @@ const matrix = {
   initialState: new Array(4).fill(new Array(4).fill("")),
 };
 
-export const Matrix = ({ ins, outs, base }) => {
+export const Matrix = ({ ins, outs, base, quant, tick }) => {
   const [state, dispatch] = useReducer(matrix.reducer, matrix.initialState);
   useEffect(() => {
     for (let i = 0; i <= 3; i++) {
@@ -89,7 +90,9 @@ export const Matrix = ({ ins, outs, base }) => {
             break;
         }
       }
-      outs[i](acc);
+      const ppqnQuant = (PPQN * 4) / quant;
+      const shouldPlay = tick % ppqnQuant === 0;
+      shouldPlay && outs[i](acc);
     }
   }, [ins, outs, state, base]);
   const [colSelection, setColSelection] = useState();

@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useMemo, useReducer, useState } from "react";
 import { ClockDivider } from "../components/ClockDivider";
+import { EuclidianRhythm } from "../components/EuclidianRhythm";
 import { Matrix } from "../components/Matrix";
 import { Metronome } from "../components/Metronome";
 import { usePrecussion } from "../hooks/Precussion";
@@ -39,7 +40,7 @@ const QuantInput = ({
       <option value="16">16</option>
       <option value="12">12 (triplets)</option>
       <option value="8">8</option>
-      <option value="8">6 (sextuplet)</option>
+      <option value="6">6 (sextuplet)</option>
       <option value="4">4</option>
       <option value="2">2</option>
       <option value="1">1</option>
@@ -154,7 +155,6 @@ const Home: NextPage = () => {
             <ClockDivider
               tick={tick}
               division={24}
-              quant={quant}
               onChange={(val) =>
                 dispatch({
                   type: "IN",
@@ -168,7 +168,6 @@ const Home: NextPage = () => {
             <ClockDivider
               tick={tick}
               division={18}
-              quant={quant}
               onChange={(val) =>
                 dispatch({
                   type: "IN",
@@ -182,7 +181,6 @@ const Home: NextPage = () => {
             <ClockDivider
               tick={tick}
               division={12}
-              quant={quant}
               onChange={(val) =>
                 dispatch({
                   type: "IN",
@@ -193,10 +191,10 @@ const Home: NextPage = () => {
                 })
               }
             />
-            <ClockDivider
+            <EuclidianRhythm
               tick={tick}
-              division={8}
-              quant={quant}
+              length={16}
+              hits={11}
               onChange={(val) =>
                 dispatch({
                   type: "IN",
@@ -223,7 +221,13 @@ const Home: NextPage = () => {
               Quantise: N steps per bar
               <QuantInput value={quant} setValue={setQuant} />
             </div>
-            <Matrix base={state.base} ins={state.ins} outs={outs} />
+            <Matrix
+              base={state.base}
+              ins={state.ins}
+              outs={outs}
+              quant={quant}
+              tick={tick}
+            />
             <div>out0 (rim) : {state.outs[0].toString()}</div>
             <div>out1 (maracas) : {state.outs[1].toString()}</div>
             <div>out2 (kick) : {state.outs[2].toString()}</div>
